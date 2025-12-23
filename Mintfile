@@ -1,0 +1,8 @@
+# Mintfile - Swift tool version management
+# https://github.com/yonaskolb/Mint
+#
+# Setup: make setup (or mint bootstrap)
+# Usage: mint run swiftlint / mint run swiftformat
+
+realm/SwiftLint@0.57.1
+nicklockwood/SwiftFormat@0.55.3

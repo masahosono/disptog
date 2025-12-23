@@ -1,0 +1,58 @@
+# GitHub Actions: ビルド & テスト
+# プルリクエストやプッシュ時に自動でビルドとリントを実行
+#
+# 注: パブリックリポジトリではGitHub提供ランナーは無料です
+# https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# フォークからのPRは初回実行時に承認が必要（GitHub側のデフォルト設定）
+# 設定: Settings > Actions > General > Fork pull request workflows
+
+jobs:
+  build:
+    name: Build & Lint
+    runs-on: macos-latest
+    # 同時実行を制限（リソース節約）
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Mint
+        run: brew install mint
+
+      - name: Setup Tools (via Mintfile)
+        run: mint bootstrap
+
+      - name: Run SwiftFormat (Check)
+        run: mint run swiftformat -- --lint .
+
+      - name: Run SwiftLint
+        run: mint run swiftlint -- --strict
+
+      - name: Build
+        run: make build
+
+      - name: Verify Build
+        run: |
+          if [ ! -f "build/DispTog.app/Contents/MacOS/DispTog" ]; then
+            echo "❌ Build verification failed"
+            exit 1
+          fi
+          echo "✅ Build verified successfully"
+

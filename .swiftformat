@@ -1,0 +1,55 @@
+# SwiftFormat configuration file
+# https://github.com/nicklockwood/SwiftFormat
+#
+# Install: brew install swiftformat
+# Run: swiftformat .
+# Check only: swiftformat --lint .
+
+# Target files
+--swiftversion 5.9
+
+# Excluded directories
+--exclude build,Packages,.build,DerivedData
+
+# Indentation settings
+--indent 4
+--tabwidth 4
+--smarttabs enabled
+
+# Brace style
+--allman false
+
+# Whitespace
+--trimwhitespace always
+--linebreaks lf
+
+# Imports
+--importgrouping testable-last
+
+# Self
+--self remove
+
+# Trailing commas
+--trailingclosures
+
+# Void
+--voidtype void
+
+# Remove redundant syntax
+--redundanttype inferred
+
+# Mark formatting
+--markextensions always
+
+# Line length (disabled to match SwiftLint)
+--maxwidth none
+
+# Enable rules
+--enable isEmpty
+--enable sortImports
+--enable duplicateImports
+
+# Disable rules (adjust to preference)
+--disable redundantSelf
+--disable trailingCommas
+--disable wrapMultilineStatementBraces

@@ -1,0 +1,47 @@
+# SwiftLint configuration file
+# https://github.com/realm/SwiftLint
+#
+# Install: brew install swiftlint
+# Run: swiftlint
+# Auto-fix: swiftlint --fix
+
+# Excluded directories
+excluded:
+  - build
+  - .build
+  - Packages
+  - DerivedData
+
+# Enabled rules (default + additional)
+opt_in_rules:
+  - empty_count                # Prefer isEmpty over count == 0
+  - empty_string               # Prefer isEmpty over == ""
+  - force_unwrapping           # Warn on force unwrapping
+  - modifier_order             # Modifier order
+  - vertical_whitespace_closing_braces  # Empty lines before closing braces
+  # implicitly_unwrapped_optional is excluded as it's common for AppKit's NSStatusItem etc.
+
+# Disabled rules
+disabled_rules:
+  - trailing_whitespace        # Trailing whitespace (depends on editor settings)
+  - line_length                # Line length (comments can be long)
+  - function_body_length       # Function length (relaxed for small apps)
+  - type_body_length           # Type length (relaxed for small apps)
+  - file_length                # File length (relaxed for small apps)
+
+# Rule settings
+identifier_name:
+  min_length:
+    warning: 2   # Variable names must be at least 2 characters
+  excluded:
+    - i
+    - j
+    - x
+    - y
+    - id
+
+nesting:
+  type_level: 2  # Nesting depth
+
+# Reporter (output format)
+reporter: "xcode"  # For Xcode integration
