@@ -1,0 +1,63 @@
+name: DispTog
+options:
+  bundleIdPrefix: com.github
+  deploymentTarget:
+    macOS: "11.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    
+targets:
+  DispTog:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+      - path: Resources
+        buildPhase: resources
+    info:
+      path: Sources/Info.plist
+      properties:
+        CFBundleName: $(PRODUCT_NAME)
+        CFBundleIdentifier: $(PRODUCT_BUNDLE_IDENTIFIER)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundlePackageType: APPL
+        CFBundleIconFile: AppIcon
+        CFBundleExecutable: $(EXECUTABLE_NAME)
+    settings:
+      base:
+        PRODUCT_NAME: DispTog
+        PRODUCT_BUNDLE_IDENTIFIER: com.github.disptog
+        INFOPLIST_FILE: Sources/Info.plist
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGN_STYLE: Automatic
+        COMBINE_HIDPI_IMAGES: YES
+        MACOSX_DEPLOYMENT_TARGET: "11.0"
+      configs:
+        Debug:
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+    dependencies:
+      - sdk: Cocoa.framework
+      - sdk: CoreGraphics.framework
+      - sdk: Carbon.framework
+    scheme:
+      gatherCoverageData: false
+      testTargets: []
+      
+schemes:
+  DispTog:
+    build:
+      targets:
+        DispTog: all
+    run:
+      config: Debug
+    archive:
+      config: Release

@@ -1,0 +1,61 @@
+name: Check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    name: Check
+    runs-on: macos-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Cache SPM Dependencies
+        uses: actions/cache@v4
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Resolve SPM Dependencies
+        run: swift package resolve
+
+      - name: Run SwiftFormat (Check)
+        run: swift run swiftformat --lint .
+
+      - name: Run SwiftLint
+        run: swift run swiftlint --strict
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Build
+        run: |
+          xcodebuild -project DispTog.xcodeproj \
+            -scheme DispTog \
+            -configuration Debug \
+            -derivedDataPath build \
+            build
+
+      - name: Verify Build
+        run: |
+          if [ ! -d "build/Build/Products/Debug/DispTog.app" ]; then
+            echo "❌ Build verification failed: DispTog.app not found"
+            exit 1
+          fi
+          echo "✅ Build verified successfully"

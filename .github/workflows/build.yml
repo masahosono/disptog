@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Build
+    runs-on: macos-latest
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    permissions:
+      contents: write  # Required for uploading release assets
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Get Version
+        id: version
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          echo "version=${TAG#v}" >> $GITHUB_OUTPUT
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: xcodegen generate
+
+      - name: Build
+        run: |
+          xcodebuild -project DispTog.xcodeproj \
+            -scheme DispTog \
+            -configuration Release \
+            -derivedDataPath build \
+            build
+
+      - name: Create DMG
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          APP_SRC="build/Build/Products/Release/DispTog.app"
+          DMG_DIR="build/dmg"
+          STAGING_DIR="$DMG_DIR/staging"
+
+          mkdir -p "$STAGING_DIR"
+          cp -R "$APP_SRC" "$STAGING_DIR/"
+          ln -s /Applications "$STAGING_DIR/Applications"
+
+          hdiutil create \
+            -volname "DispTog" \
+            -srcfolder "$STAGING_DIR" \
+            -ov \
+            -format UDZO \
+            "$DMG_DIR/DispTog-${VERSION}.dmg"
+
+          rm -rf "$STAGING_DIR"
+
+      - name: Upload DMG to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/dmg/DispTog-${{ steps.version.outputs.version }}.dmg
