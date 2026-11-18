@@ -5,6 +5,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
     private let displayManager = DisplayManager()
     private var eventHotKeyRef: EventHotKeyRef?
+    /// Pending task that restores the default icon after the checkmark feedback.
+    /// Kept so a new toggle can cancel the previous one (like clearTimeout in JS).
+    private var iconResetWorkItem: DispatchWorkItem?
+
+    private static let feedbackDuration: TimeInterval = 2.0
+
+    private static func defaultIcon() -> NSImage? {
+        NSImage(systemSymbolName: "display.2", accessibilityDescription: "Display Toggle")
+    }
 
     func applicationDidFinishLaunching(_: Notification) {
         setupStatusItem()
@@ -21,7 +30,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "display.2", accessibilityDescription: "Display Toggle")
+            button.image = AppDelegate.defaultIcon()
         }
 
         statusItem.menu = createMenu()
@@ -73,15 +82,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 item.title = "Current: \(displayManager.currentModeDescription)"
             }
 
-            // Visual feedback
-            if let button = statusItem.button {
-                let original = button.image
-                button.image = NSImage(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: nil)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    button.image = original
-                }
-            }
+            showToggleFeedback()
         }
+    }
+
+    /// Briefly shows a checkmark in the menu bar, then restores the default icon.
+    private func showToggleFeedback() {
+        guard let button = statusItem.button else { return }
+
+        button.image = NSImage(systemSymbolName: "checkmark.circle.fill", accessibilityDescription: "Toggled")
+
+        // Always restore the fixed default icon instead of the icon captured at toggle time.
+        // Otherwise toggling again while the checkmark is shown would capture the checkmark
+        // as the "original" and leave it stuck in the menu bar.
+        iconResetWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak button] in
+            button?.image = AppDelegate.defaultIcon()
+        }
+        iconResetWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + AppDelegate.feedbackDuration, execute: workItem)
     }
 
     @objc func quitApp() {
