@@ -83,5 +83,6 @@ when it could not be verified.
 
 - The global shortcut may require Accessibility permission
   (System Settings > Privacy & Security > Accessibility).
-- Keep `README.md` and `CONTRIBUTING.md` consistent with any changes to build
-  steps, shortcuts, or structure.
+- Keep `README.md`, `README_ja.md` (Japanese translation), and
+  `CONTRIBUTING.md` consistent with any changes to build steps, shortcuts, or
+  structure. When editing `README.md`, apply the same change to `README_ja.md`.

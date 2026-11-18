@@ -4,6 +4,8 @@
 
 # DispTog 🖥️
 
+English | [日本語](README_ja.md)
+
 A menu bar app for macOS that toggles display **mirroring/extended** mode with one click.
 
 [![Check](https://github.com/your-username/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/your-username/disptog/actions/workflows/check.yml)
@@ -142,9 +144,11 @@ swift run swiftlint              # Run linter
 
 ```
 disptog/
-├── README.md              # This file
+├── README.md              # This file (English)
+├── README_ja.md           # README (Japanese)
 ├── LICENSE                # MIT License
 ├── CONTRIBUTING.md        # Contribution guide
+├── AGENTS.md              # Guide for AI coding agents
 ├── project.yml            # XcodeGen project configuration
 ├── Package.swift          # SPM dependencies (SwiftLint, SwiftFormat)
 ├── .swiftlint.yml         # SwiftLint configuration
@@ -186,11 +190,11 @@ Detailed comments are provided in Swift code for TypeScript/JavaScript developer
 
 To release a new version:
 
-1. GitHub の [Releases](https://github.com/your-username/disptog/releases) ページで新しいリリースを作成
-2. タグ名を `v1.0.0` の形式で設定
-3. リリースを **Publish** する
+1. Create a new release on the GitHub [Releases](https://github.com/your-username/disptog/releases) page
+2. Set the tag name in the format `v1.0.0`
+3. **Publish** the release
 
-GitHub Actions が自動的に DMG をビルドしてリリースのアセットにアップロードします。
+GitHub Actions will automatically build the DMG and upload it to the release assets.
 
 ## 🐛 Troubleshooting
 
