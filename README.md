@@ -8,7 +8,7 @@ English | [日本語](README_ja.md)
 
 A menu bar app for macOS that toggles display **mirroring/extended** mode with one click.
 
-[![Check](https://github.com/your-username/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/your-username/disptog/actions/workflows/check.yml)
+[![Check](https://github.com/masahosono/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/masahosono/disptog/actions/workflows/check.yml)
 ![macOS](https://img.shields.io/badge/macOS-12.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Swift](https://img.shields.io/badge/Swift-5.0+-orange)
@@ -24,7 +24,7 @@ A menu bar app for macOS that toggles display **mirroring/extended** mode with o
 
 ### Method 1: Download DMG (Recommended)
 
-1. Download the latest DMG from [Releases](https://github.com/your-username/disptog/releases/latest)
+1. Download the latest DMG from [Releases](https://github.com/masahosono/disptog/releases/latest)
 2. Open the DMG and drag DispTog to the Applications folder
 3. Launch DispTog
 
@@ -32,7 +32,7 @@ A menu bar app for macOS that toggles display **mirroring/extended** mode with o
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/disptog.git
+git clone https://github.com/masahosono/disptog.git
 cd disptog
 
 # Install XcodeGen
@@ -190,7 +190,7 @@ Detailed comments are provided in Swift code for TypeScript/JavaScript developer
 
 To release a new version:
 
-1. Create a new release on the GitHub [Releases](https://github.com/your-username/disptog/releases) page
+1. Create a new release on the GitHub [Releases](https://github.com/masahosono/disptog/releases) page
 2. Set the tag name in the format `v1.0.0`
 3. **Publish** the release
 

@@ -8,7 +8,7 @@
 
 ディスプレイの **ミラーリング／拡張** モードをワンクリックで切り替えられる macOS 用メニューバーアプリです。
 
-[![Check](https://github.com/your-username/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/your-username/disptog/actions/workflows/check.yml)
+[![Check](https://github.com/masahosono/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/masahosono/disptog/actions/workflows/check.yml)
 ![macOS](https://img.shields.io/badge/macOS-12.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Swift](https://img.shields.io/badge/Swift-5.0+-orange)
@@ -24,7 +24,7 @@
 
 ### 方法 1: DMG をダウンロード（推奨）
 
-1. [Releases](https://github.com/your-username/disptog/releases/latest) から最新の DMG をダウンロード
+1. [Releases](https://github.com/masahosono/disptog/releases/latest) から最新の DMG をダウンロード
 2. DMG を開き、DispTog をアプリケーションフォルダへドラッグ
 3. DispTog を起動
 
@@ -32,7 +32,7 @@
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/your-username/disptog.git
+git clone https://github.com/masahosono/disptog.git
 cd disptog
 
 # XcodeGen をインストール
@@ -190,7 +190,7 @@ Swift のコードには、TypeScript/JavaScript 開発者向けの詳しいコ�
 
 新しいバージョンをリリースする手順:
 
-1. GitHub の [Releases](https://github.com/your-username/disptog/releases) ページで新しいリリースを作成
+1. GitHub の [Releases](https://github.com/masahosono/disptog/releases) ページで新しいリリースを作成
 2. タグ名を `v1.0.0` の形式で設定
 3. リリースを **Publish** する
 
