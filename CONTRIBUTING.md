@@ -6,7 +6,7 @@ Thank you for considering contributing to DispTog! 🎉
 
 ### Requirements
 
-- macOS 11.0 (Big Sur) or later
+- macOS 12.0 (Monterey) or later
 - Xcode Command Line Tools
 - [Homebrew](https://brew.sh/) (Package manager)
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) (Project generation)

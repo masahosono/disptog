@@ -9,7 +9,7 @@ English | [日本語](README_ja.md)
 A menu bar app for macOS that toggles display **mirroring/extended** mode with one click.
 
 [![Check](https://github.com/your-username/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/your-username/disptog/actions/workflows/check.yml)
-![macOS](https://img.shields.io/badge/macOS-11.0+-blue)
+![macOS](https://img.shields.io/badge/macOS-12.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Swift](https://img.shields.io/badge/Swift-5.0+-orange)
 
@@ -97,7 +97,7 @@ Accessibility permission is required to use the global shortcut:
 
 ### Requirements
 
-- macOS 11.0 (Big Sur) or later
+- macOS 12.0 (Monterey) or later
 - Xcode Command Line Tools
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) (Project generation)
 

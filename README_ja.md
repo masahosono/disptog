@@ -9,7 +9,7 @@
 ディスプレイの **ミラーリング／拡張** モードをワンクリックで切り替えられる macOS 用メニューバーアプリです。
 
 [![Check](https://github.com/your-username/disptog/actions/workflows/check.yml/badge.svg)](https://github.com/your-username/disptog/actions/workflows/check.yml)
-![macOS](https://img.shields.io/badge/macOS-11.0+-blue)
+![macOS](https://img.shields.io/badge/macOS-12.0+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Swift](https://img.shields.io/badge/Swift-5.0+-orange)
 
@@ -97,7 +97,7 @@ open /Applications/DispTog.app
 
 ### 必要なもの
 
-- macOS 11.0（Big Sur）以降
+- macOS 12.0（Monterey）以降
 - Xcode Command Line Tools
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen)（プロジェクト生成）
 

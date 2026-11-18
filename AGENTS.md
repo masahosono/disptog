@@ -9,7 +9,7 @@ DispTog is a small macOS menu bar app (Swift / AppKit) that toggles display
 The app prioritizes simplicity — avoid adding features, dependencies, or
 abstractions unless explicitly requested.
 
-- Target: macOS 11.0+, Swift 5
+- Target: macOS 12.0+, Swift 5
 - Frameworks: Cocoa, CoreGraphics, Carbon (no third-party runtime dependencies)
 - The app runs as a menu bar–only app (hidden from the Dock via `setActivationPolicy(.accessory)`)
 
