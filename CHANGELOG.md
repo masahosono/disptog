@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-19
+
 ### Added
 
-- Customizable global shortcut via **Change Shortcut…** in the menu (with **Reset to Default**)
+- Customizable global shortcut via **Change Shortcut…** in the menu: the new combination is previewed and checked for conflicts, and applied only when **Save** is clicked (**Reset to Default** restores `⌘⇧M`)
 - App version display and a **What's New (Changelog)…** link in the menu
 - This changelog
 
@@ -39,7 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release: toggle display mirroring / extended desktop from the menu bar or with `⌘⇧M`
 
-[Unreleased]: https://github.com/masahosono/disptog/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/masahosono/disptog/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/masahosono/disptog/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/masahosono/disptog/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/masahosono/disptog/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/masahosono/disptog/releases/tag/v1.0.0
