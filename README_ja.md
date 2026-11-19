@@ -79,7 +79,7 @@ open /Applications/DispTog.app
 | 🖱️ メニューバーアイコンをクリック | メニューを表示 |
 | 🔄 「Toggle Mirroring/Extended」を選択 | モードを切り替え |
 | ⌨️ `⌘⇧M`（Command + Shift + M） | グローバルショートカットで切り替え（デフォルト） |
-| ⌨️ 「Change Shortcut…」を選択 | 新しいキーの組み合わせを押して変更（⌘・⌥・⌃ のいずれかを含む必要あり）。「Reset to Default」で `⌘⇧M` に戻す |
+| ⌨️ 「Change Shortcut…」を選択 | 新しいキーの組み合わせを押し、表示された内容を確認して「Save」で確定（⌘・⌥・⌃ のいずれかを含む必要あり）。「Reset to Default」で `⌘⇧M` に戻す |
 | ℹ️ バージョン表示 / 「What's New (Changelog)…」 | アプリのバージョンを表示 / [CHANGELOG.md](CHANGELOG.md) を開く |
 
 ### ディスプレイモード

@@ -79,7 +79,7 @@ open /Applications/DispTog.app
 | 🖱️ Click menu bar icon | Show menu |
 | 🔄 Select "Toggle Mirroring/Extended" | Toggle mode |
 | ⌨️ `⌘⇧M` (Command + Shift + M) | Toggle with global shortcut (default) |
-| ⌨️ Select "Change Shortcut…" | Press a new key combination (must include ⌘, ⌥, or ⌃). "Reset to Default" restores `⌘⇧M` |
+| ⌨️ Select "Change Shortcut…" | Press a new key combination (must include ⌘, ⌥, or ⌃), check the preview, then click "Save". "Reset to Default" restores `⌘⇧M` |
 | ℹ️ Version / "What's New (Changelog)…" | Show the app version / open [CHANGELOG.md](CHANGELOG.md) |
 
 ### Display Modes

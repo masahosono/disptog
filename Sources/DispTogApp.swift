@@ -162,7 +162,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Shortcut customization
 
-    /// Asks the user to press a new key combination and applies it.
+    /// Asks the user to press a new key combination, shows it for confirmation,
+    /// and applies it only when "Save" is clicked.
     @objc func changeShortcut() {
         // Temporarily release the current hotkey so pressing it is recorded
         // instead of toggling the display.
@@ -171,26 +172,48 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let alert = NSAlert()
         alert.messageText = "Change Shortcut"
         alert.informativeText = """
-        Press the new key combination.
+        Press the new key combination, then click Save.
         It must include ⌘, ⌥, or ⌃.
 
         Current: \(shortcut.displayString)
         """
+        // Button order matters for NSAlert: the first one is the default (Return),
+        // and a button titled "Cancel" is triggered by Escape.
+        let saveButton = alert.addButton(withTitle: "Save")
+        saveButton.isEnabled = false // Enabled once a valid combination is pressed
         alert.addButton(withTitle: "Cancel")
         alert.addButton(withTitle: "Reset to Default")
 
+        // NSAlert's informativeText is laid out once when the alert is shown, so the
+        // live preview goes into a separate label (accessory view) that we can update.
+        let previewLabel = NSTextField(labelWithString: "New: —")
+        previewLabel.font = NSFont.systemFont(ofSize: NSFont.systemFontSize, weight: .semibold)
+        previewLabel.frame = NSRect(x: 0, y: 0, width: 260, height: 20)
+        alert.accessoryView = previewLabel
+
         // A "local monitor" sees key events of this app before they are dispatched
         // (similar to a capturing keydown listener in JS). It also runs while the alert
-        // is shown modally, so we can grab the key press and close the alert ourselves.
+        // is shown modally, so we can record key presses without closing the alert.
         var recorded: Shortcut?
-        let monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            if let newShortcut = Shortcut(event: event) {
-                recorded = newShortcut
-                NSApp.stopModal(withCode: .OK)
+        let monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            guard let self else { return event }
+            if let candidate = Shortcut(event: event) {
+                // Check availability now (register + release) so the user sees a conflict
+                // before confirming, instead of after.
+                if self.registerHotKey(candidate) {
+                    self.unregisterHotKey()
+                    recorded = candidate
+                    previewLabel.stringValue = "New: \(candidate.displayString)"
+                    saveButton.isEnabled = true
+                } else {
+                    recorded = nil
+                    previewLabel.stringValue = "\(candidate.displayString) is already in use"
+                    saveButton.isEnabled = false
+                }
                 return nil // Swallow the event
             }
-            // Let Escape reach the alert so it can cancel; ignore other plain keys.
-            if Int(event.keyCode) == kVK_Escape {
+            // Let Return / Escape reach the alert (Save / Cancel); ignore other plain keys.
+            if [kVK_Return, kVK_ANSI_KeypadEnter, kVK_Escape].contains(Int(event.keyCode)) {
                 return event
             }
             NSSound.beep()
@@ -206,9 +229,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let previous = shortcut
         let candidate: Shortcut
-        if response == .OK, let recorded {
+        if response == .alertFirstButtonReturn, let recorded {
             candidate = recorded
-        } else if response == .alertSecondButtonReturn {
+        } else if response == .alertThirdButtonReturn {
             candidate = Shortcut.defaultShortcut
         } else {
             _ = registerHotKey(previous)
