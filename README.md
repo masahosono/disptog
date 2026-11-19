@@ -16,7 +16,7 @@ A menu bar app for macOS that toggles display **mirroring/extended** mode with o
 ## ✨ Features
 
 - 🖱️ **One-click toggle** from the menu bar to switch display modes
-- ⌨️ **Global shortcut** (`⌘⇧M`) to toggle from anywhere
+- ⌨️ **Global shortcut** (`⌘⇧M` by default, customizable) to toggle from anywhere
 - 🪶 **Lightweight & simple** - minimal functionality only
 - 🚫 **Hidden from Dock** - resides only in the menu bar
 
@@ -78,7 +78,9 @@ open /Applications/DispTog.app
 |--------|-------------|
 | 🖱️ Click menu bar icon | Show menu |
 | 🔄 Select "Toggle Mirroring/Extended" | Toggle mode |
-| ⌨️ `⌘⇧M` (Command + Shift + M) | Toggle with global shortcut |
+| ⌨️ `⌘⇧M` (Command + Shift + M) | Toggle with global shortcut (default) |
+| ⌨️ Select "Change Shortcut…" | Press a new key combination (must include ⌘, ⌥, or ⌃). "Reset to Default" restores `⌘⇧M` |
+| ℹ️ Version / "What's New (Changelog)…" | Show the app version / open [CHANGELOG.md](CHANGELOG.md) |
 
 ### Display Modes
 
@@ -148,6 +150,7 @@ disptog/
 ├── README_ja.md           # README (Japanese)
 ├── LICENSE                # MIT License
 ├── CONTRIBUTING.md        # Contribution guide
+├── CHANGELOG.md           # Release history
 ├── AGENTS.md              # Guide for AI coding agents
 ├── project.yml            # XcodeGen project configuration
 ├── Package.swift          # SPM dependencies (SwiftLint, SwiftFormat)
@@ -160,6 +163,7 @@ disptog/
 ├── Sources/
 │   ├── DispTogApp.swift      # Main app (entry point)
 │   ├── DisplayManager.swift  # Display control logic
+│   ├── Shortcut.swift        # Global shortcut model (persistence & display)
 │   └── Info.plist            # App configuration
 └── build/                 # Build artifacts (.gitignore)
     └── Build/Products/
@@ -186,13 +190,22 @@ Detailed comments are provided in Swift code for TypeScript/JavaScript developer
   - Get display information
   - Toggle mirroring/extended mode
 
+#### `Shortcut.swift`
+- **Role**: Model for the user-configurable global shortcut
+- **Equivalent concept**: A small value object + `localStorage` wrapper
+- **Main responsibilities**:
+  - Convert key events to Carbon key code / modifiers
+  - Save and load the shortcut (`UserDefaults`)
+  - Format the shortcut for display (e.g. `⌘⇧M`)
+
 ### How to Release
 
 To release a new version:
 
-1. Create a new release on the GitHub [Releases](https://github.com/masahosono/disptog/releases) page
-2. Set the tag name in the format `v1.0.0`
-3. **Publish** the release
+1. Move the `[Unreleased]` entries in [CHANGELOG.md](CHANGELOG.md) under the new version
+2. Create a new release on the GitHub [Releases](https://github.com/masahosono/disptog/releases) page
+3. Set the tag name in the format `v1.0.0`
+4. **Publish** the release
 
 GitHub Actions will automatically build the DMG and upload it to the release assets.
 

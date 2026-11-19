@@ -16,7 +16,7 @@
 ## ✨ 特徴
 
 - 🖱️ メニューバーから **ワンクリックで切り替え**
-- ⌨️ **グローバルショートカット**（`⌘⇧M`）でどこからでも切り替え可能
+- ⌨️ **グローバルショートカット**（デフォルト `⌘⇧M`、変更可能）でどこからでも切り替え可能
 - 🪶 **軽量でシンプル** - 必要最小限の機能のみ
 - 🚫 **Dock に表示されない** - メニューバーにのみ常駐
 
@@ -78,7 +78,9 @@ open /Applications/DispTog.app
 |------|------|
 | 🖱️ メニューバーアイコンをクリック | メニューを表示 |
 | 🔄 「Toggle Mirroring/Extended」を選択 | モードを切り替え |
-| ⌨️ `⌘⇧M`（Command + Shift + M） | グローバルショートカットで切り替え |
+| ⌨️ `⌘⇧M`（Command + Shift + M） | グローバルショートカットで切り替え（デフォルト） |
+| ⌨️ 「Change Shortcut…」を選択 | 新しいキーの組み合わせを押して変更（⌘・⌥・⌃ のいずれかを含む必要あり）。「Reset to Default」で `⌘⇧M` に戻す |
+| ℹ️ バージョン表示 / 「What's New (Changelog)…」 | アプリのバージョンを表示 / [CHANGELOG.md](CHANGELOG.md) を開く |
 
 ### ディスプレイモード
 
@@ -148,6 +150,7 @@ disptog/
 ├── README_ja.md           # このファイル（日本語）
 ├── LICENSE                # MIT ライセンス
 ├── CONTRIBUTING.md        # コントリビューションガイド
+├── CHANGELOG.md           # 変更履歴
 ├── AGENTS.md              # AI コーディングエージェント向けガイド
 ├── project.yml            # XcodeGen のプロジェクト設定
 ├── Package.swift          # SPM の依存関係（SwiftLint、SwiftFormat）
@@ -160,6 +163,7 @@ disptog/
 ├── Sources/
 │   ├── DispTogApp.swift      # メインアプリ（エントリーポイント）
 │   ├── DisplayManager.swift  # ディスプレイ制御ロジック
+│   ├── Shortcut.swift        # グローバルショートカットのモデル（保存・表示）
 │   └── Info.plist            # アプリの設定
 └── build/                 # ビルド成果物（.gitignore 対象）
     └── Build/Products/
@@ -186,13 +190,22 @@ Swift のコードには、TypeScript/JavaScript 開発者向けの詳しいコ�
   - ディスプレイ情報の取得
   - ミラーリング／拡張モードの切り替え
 
+#### `Shortcut.swift`
+- **役割**: ユーザーが変更できるグローバルショートカットのモデル
+- **相当する概念**: 小さな値オブジェクト + `localStorage` のラッパー
+- **主な責務**:
+  - キーイベントを Carbon のキーコード／修飾キーに変換
+  - ショートカットの保存と読み込み（`UserDefaults`）
+  - 表示用の文字列（例: `⌘⇧M`）の生成
+
 ### リリース方法
 
 新しいバージョンをリリースする手順:
 
-1. GitHub の [Releases](https://github.com/masahosono/disptog/releases) ページで新しいリリースを作成
-2. タグ名を `v1.0.0` の形式で設定
-3. リリースを **Publish** する
+1. [CHANGELOG.md](CHANGELOG.md) の `[Unreleased]` の内容を新しいバージョンの見出しの下に移す
+2. GitHub の [Releases](https://github.com/masahosono/disptog/releases) ページで新しいリリースを作成
+3. タグ名を `v1.0.0` の形式で設定
+4. リリースを **Publish** する
 
 GitHub Actions が自動的に DMG をビルドし、リリースのアセットにアップロードします。
 

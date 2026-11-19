@@ -18,6 +18,7 @@ abstractions unless explicitly requested.
 | Path | Purpose |
 |------|---------|
 | `Sources/DispTogApp.swift` | Entry point / `AppDelegate`: status item, menu, global hotkey (Carbon `RegisterEventHotKey`) |
+| `Sources/Shortcut.swift` | Global shortcut model: Carbon key code/modifiers, `UserDefaults` persistence, display string |
 | `Sources/DisplayManager.swift` | Display logic: reads online displays and switches mirroring/extended via CoreGraphics display configuration APIs |
 | `Sources/Info.plist` | App configuration |
 | `Resources/` | App icon (`AppIcon.icns`, `icon_1024.png`) |
@@ -76,6 +77,7 @@ when it could not be verified.
 - Use Conventional Commit–style prefixes: `feat:`, `fix:`, `docs:`,
   `refactor:`, `style:`, `test:`, `chore:`.
 - PRs target `main`; the `Check` workflow must pass.
+- Add user-visible changes to the `[Unreleased]` section of `CHANGELOG.md`.
 - Releases are created by publishing a GitHub Release with a `vX.Y.Z` tag;
   do not create releases or tags unless asked.
 
